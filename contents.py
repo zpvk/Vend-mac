@@ -13,7 +13,7 @@ class VendingMachine:
         self.price = price
         self.iname = iname
         self.quantity = quantity
-        VendingMachine.stock.append([itemID, price, quantity, iname])
+        stock=stock.append([itemID, price, quantity, iname])
 
     
 

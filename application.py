@@ -12,7 +12,7 @@ class application(userFunction):
         super().__init__(itemID, price, iname, quantity)
         
 
-    def login(self):
+    def login():
         user=input("\n\nPlease enter your \n\t> MIT Employee ID exxx\n\tor \n\t> MIT Student ID sxxx:")
         print("Hello - {}\n\nWelcome to MIT Vending Machine".format(user))
         if 'e' in user:
@@ -71,7 +71,6 @@ class application(userFunction):
 
 
 
-VM01 = application("A3",20,"coc",10)
-VM01.load_vm()
-VM01.disp()
-VM01.login()
+userFunction.load_vm
+userFunction.disp()
+application.login()

@@ -13,10 +13,10 @@ class userFunction(VendingMachine):
     total = 0
     items = VendingMachine.stock
     def load_vm(self): #LETS PUT SOME DEFAULT ITEMS IN THE VENDING MACHINE
-        userFunction.items.append(["A1", 10, "Water", 2])
-        userFunction.items.append(["A2", 20, "Chips", 4])
+        VM1 = VendingMachine(["A1", 10, "Water", 2])
+        VM2 = VendingMachine(["A2", 20, "Chips", 4])
 
-    def disp(self):
+    def disp():
         items = userFunction.items
         print("\tContents of VM")
         print("-"*40)
