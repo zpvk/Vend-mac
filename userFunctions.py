@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on 
+Created on: 29/05/2020
 
-@author:
+@author: Rohan Kumara
 """
 import time
 from threading import Thread
