@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on: 29/05/2020
+Created on:
 
-@author: Rohan Kumara
+@author: 
 """
 import userFunctions
 
@@ -58,7 +58,7 @@ def menuStudent():
         
 
 
+userFunctions.load_vm()
 while (True):
-    userFunctions.load_vm()
     userFunctions.disp()
     login()
