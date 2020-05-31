@@ -1,20 +1,20 @@
-# -*- coding: utf-8 -*-
 """
-Created on: 29/05/2020
+Created on 
 
-@author: Rohan Kumara
+@author:
 """
 
 
 class VendingMachine:
-    stock=[]
+    items = {}
+    stock= items.keys()
     def __init__(self, itemID,price,iname,quantity):
-        stock = []
+        items = VendingMachine.items
         self.itemID = itemID
         self.price = price
         self.iname = iname
         self.quantity = quantity
-        stock=stock.append([itemID, price, quantity, iname])
-
-    
-
+        items[self.itemID]=[self.price,self.iname,self.quantity]
+ 
+    def description(self):
+        return "Item:{} Price:{} Quantity:{} Item Name:{}".format(self.itemID,self.price,self.quantity,self.iname)
