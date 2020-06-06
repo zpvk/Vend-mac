@@ -1,86 +1,96 @@
 # -*- coding: utf-8 -*-
 """
-Created on: 29/05/2020
+Created on 
 
-@author: Rohan Kumara
+@author:
 """
-import time
-from threading import Thread
-from contents import VendingMachine
+import threading
+import contents
 
+items=[]
+def load_vm(): #LETS PUT SOME DEFAULT ITEMS IN THE VENDING MACHINE
+    vm1=contents.VendingMachine("A1",10,"Water",2)
+    items.append(vm1)  
+    vm2=contents.VendingMachine("A2",20,"Chips",4)
+    items.append(vm2)
 
-class userFunction(VendingMachine):
+    
+def add_item():   
+    print("       ADD Item")
+    itemID = input("Emter itemID: ")
+    ind = search(itemID)
+    if ind == None:
+        price = int(input("Price: $"))
+        iname = input("Enter item Name: ")
+        quantity = int(input('How many items are you adding? '))
+        items.append(contents.VendingMachine(itemID, price, iname, quantity))
+    else:
+
+        ind[0] = int(input("Price: $"))
+        ind[1] = input("Enter item Name: ")
+        i = int(input('How many items are you adding? '))
+        ind[2] = ind[2]+i
+
+     
+def buy_item(s):
     total = 0
-    items = VendingMachine.stock
-    def load_vm(self): #LETS PUT SOME DEFAULT ITEMS IN THE VENDING MACHINE
-        VM1 = VendingMachine(["A1", 10, "Water", 2])
-        VM2 = VendingMachine(["A2", 20, "Chips", 4])
+    print("       Purchase Item")  
+    ###
+    itemId = input("Enter item ID:")
+    ind = search(itemId)
+    if ind[2]==0:
+        print(f"\nEmpty Item Slot: {itemId}")
+    else:
+        print(f"\nItem Slot: {itemId}")
+        print(f"price:{ind[0]}")
+        ind[2] = ind[2]-1
+        total = ind[0]
+        timer = threading.Timer(5.0,calculate(s,total))
+        timer.cancel()
 
-    def disp():
-        items = userFunction.items
-        print("\tContents of VM")
-        print("-"*40)
-        print("\n\nItems in VM (Total : {})\n".format(len(items)))
-        print("NO#\tItem ID \tPrice\tQuantity\tItem Name")
+
+def calculate(s,total):
+    if s == 's':
+        Ntotal = total-((total/100)*20)
+    else:
+        Ntotal = total
+    print("Please pay : $ ", Ntotal)
+    paid = int(input(""))
+    if paid == Ntotal:
+        print("Successful")
+    else:
+        change = paid-Ntotal
+        print(f"Your change is: {change}")
+
         
-        for i in range(len(items)):
-            print(f"{i+1}.\t{items[i][0]}\t\t ${items[i][1]}\t{items[i][3]}\t\t{items[i][2]}")
+def disp():
+    print("\tContents of VM")
+    print("-"*40)
+    print("\n\nItems in VM (Total : {})\n".format(len(items)))
+    print("NO#\tItem ID \tPrice\tItem Name\tQuantity")
+    k_list = list(contents.VendingMachine.items.keys())
+    for i in range(len(k_list)):
+        id = search(k_list[i])
+        print(f"{i+1}.\t{k_list[i]}\t\t ${id[0]}\t{id[1]}\t\t{id[2]}")
 
-    def add():
-        items = userFunction.items
-        itemID = input("Enter Item ID : ")
-        price = input("price : $ ")
-        iname = input("Item Name : ")
-        quantity = int(input("How many Items are you adding?"))
-        if userFunction.search(itemID):
-            ind = items.index(itemID)
-            items[ind][1] = price
-            items[ind][2] = iname
-            items[ind][3] = items[ind][3] + quantity
-        else:
-            items.append([itemID, price,iname, quantity])
-        print("-"*40)
-        print("Item added: {}".format(itemID))
-
-    def buy_item():
-        items= userFunction.items
-        print("       Purchase Item")
-        print("-"*40)
-        item = input("Enter item ID: ")
-        if userFunction.search(item) == True:
-            s_i = items.index(item)
-            print(f"\nItem Slot: {item}\nItem Sell price: ${items[s_i][1]}")
-            print(f"Please Pay : ${items[s_i][1]}")
-            items[s_i][2] = items[s_i][2] - 1
-            total = items[s_i][1]
-        else:
-            print("Invalid input")
-        
-        
-
-            
-    def calculate(price):
-        print("Please pay : $ ",price)
-        amount = int(input())
-        print(f"You Balance is : {amount-price}")
-        print("Transaction Complete ....")
 
     
-    def search(itemId):
-        items = userFunction.items          
-        if itemId in items:
-            return True
-        else:
-            return False
+    
+def quit_vm():
+     print() 
+     print("Terminating ... \n\n")
 
-    def quit_vm():
-        print("Terminating ... ")
-        quit_vm = False
-    
-    def timeout(self,Answer):
-        time.sleep(2)
-        if Answer != None:
-            return
-        print ("Too Slow")
-    
+def search(itemID):
+    dict = contents.VendingMachine.items
+    for i in items:
+        if(i.itemID==itemID):
+            return dict.get(itemID)
+
+
+def getList(dict):
+    list = []
+    for key in dict.keys():
+        list.append(key)
+
+    return list
 
